@@ -17,5 +17,9 @@
         "node_modules",
         "bower_components",
         "lib/"
-    ]
+    ],
+    "dependencies": {
+      "globalize": "^1.2.1",
+      "cldr-dates-full": "^30.0.3"
+    }
 }

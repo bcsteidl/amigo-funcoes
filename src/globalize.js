@@ -2,19 +2,19 @@
 
 module.exports = function(lang) {
     Globalize.load(
-        require("../../../../lib/cldr-dates-full/main/pt/ca-gregorian.json"),
-        require("../../../../lib/cldr-numbers-full/main/pt/numbers.json"),
-        require("../../../../lib/cldr-numbers-full/main/pt/currencies.json"),
-        require("../../../../lib/cldr-dates-full/main/en/ca-gregorian.json"),
-        require("../../../../lib/cldr-numbers-full/main/en/numbers.json"),
-        require("../../../../lib/cldr-numbers-full/main/en/currencies.json"),
-        require("../../../../lib/cldr-dates-full/main/es/ca-gregorian.json"),
-        require("../../../../lib/cldr-numbers-full/main/es/numbers.json"),
-        require("../../../../lib/cldr-numbers-full/main/es/currencies.json"),
-        require("../../../../lib/cldr-core/supplemental/timeData.json"),
-        require("../../../../lib/cldr-core/supplemental/weekData.json"),
-        require("../../../../lib/cldr-core/supplemental/likelySubtags.json"),
-        require("../../../../lib/cldr-core/supplemental/plurals.json")
+        require("lib/cldr-dates-full/main/pt/ca-gregorian.json"),
+        require("lib/cldr-numbers-full/main/pt/numbers.json"),
+        require("lib/cldr-numbers-full/main/pt/currencies.json"),
+        require("lib/cldr-dates-full/main/en/ca-gregorian.json"),
+        require("lib/cldr-numbers-full/main/en/numbers.json"),
+        require("lib/cldr-numbers-full/main/en/currencies.json"),
+        require("lib/cldr-dates-full/main/es/ca-gregorian.json"),
+        require("lib/cldr-numbers-full/main/es/numbers.json"),
+        require("lib/cldr-numbers-full/main/es/currencies.json"),
+        require("lib/cldr-core/supplemental/timeData.json"),
+        require("lib/cldr-core/supplemental/weekData.json"),
+        require("lib/cldr-core/supplemental/likelySubtags.json"),
+        require("lib/cldr-core/supplemental/plurals.json")
     );
 
     $.widget("ui.spinner", $.ui.spinner, {

@@ -1,6 +1,6 @@
 'use strict'
 
-$.fn.funcoes = require('../amigo-funcoes')
+$.fn.funcoes = require('.')
 
 // Number.prototype.formata = function(d) {
 // 	var num = this.toFixed(d);

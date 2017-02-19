@@ -74,280 +74,19 @@
 
 
 module.exports = {
-    globalize: __webpack_require__(4),
-    toUpperLowerCase: __webpack_require__(7),
-    substituir: __webpack_require__(6),
-    dataHora: __webpack_require__(3),
-    chaveUnica: __webpack_require__(2),
-    ajaxSubmit: __webpack_require__(1),
-    verificaErro: __webpack_require__(8),
-    isCPF: __webpack_require__(5)
+    globalize: __webpack_require__(17),
+    toUpperLowerCase: __webpack_require__(20),
+    substituir: __webpack_require__(19),
+    dataHora: __webpack_require__(16),
+    chaveUnica: __webpack_require__(15),
+    ajaxSubmit: __webpack_require__(14),
+    verificaErro: __webpack_require__(21),
+    isCPF: __webpack_require__(18)
 }
 
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function(parametros) {
-    // Definindo valores padrões
-    if (typeof(parametros) == "undefined")
-        parametros = {};
-
-    var opcoes = {
-        servidor: (typeof(parametros.servidor) != "undefined" ? parametros.servidor : "localhost"),
-        porta: (typeof(parametros.porta) != "undefined" ? parametros.porta : "8080"),
-        url: (typeof(parametros.url) != "undefined" ? parametros.url : "http://[servidor]:[porta]"),
-        metodo: (typeof(parametros.metodo) != "undefined" ? parametros.metodo : "GET"),
-        acao: (typeof(parametros.acao) != "undefined" ? parametros.acao : "consultar"),
-        assincrono: (typeof(parametros.assincrono) != "undefined" ? parametros.assincrono : true),
-        query: (typeof(parametros.query) != "undefined" ? parametros.query : ""),
-        dados: (typeof(parametros.dados) != "undefined" ? parametros.dados : {}),
-        callback: (typeof(parametros.callback) != "undefined" ? parametros.callback : "")
-    };
-
-    $.each(opcoes, function(key, value) {
-        if (typeof(value) == "string") {
-            value = value.replace("[servidor]", opcoes.servidor);
-            value = value.replace("[porta]", opcoes.porta);
-            opcoes[key] = value;
-        }
-    });
-
-    $.ajax({
-        type: opcoes.metodo,
-        url: opcoes.url + "/api/" + opcoes.acao + "/" + opcoes.query,
-        dataType: "json",
-        contentType: "application/json",
-        async: opcoes.assincrono,
-        cache: false,
-        timeout: 30000,
-        headers: {
-            "authorization": localStorage.getItem("token")
-        },
-        data: opcoes.dados,
-        success: opcoes.callback,
-        error: function(xmlHttpRequest, status, err) {
-            alert("Não foi possível completar a comunicação com o servidor, aguarde alguns minutos e tente novamente.");
-        }
-    });
-}
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function() {
-    return $().funcoes.dataHora("ANO") + $().funcoes.dataHora("MES") + $().funcoes.dataHora("DIA") + $().funcoes.dataHora("HORA24") + $().funcoes.dataHora("MINUTO") + $().funcoes.dataHora("SEGUNDO") + $().funcoes.dataHora("MILISEGUNDO");
-}
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function(tipo) {
-    var auxDataHora = new Date();
-    var dia = ((auxDataHora.getDate() < 10) ? "0" : "") + auxDataHora.getDate();
-    var mes = (((auxDataHora.getMonth() + 1) < 10) ? "0" : "") + (auxDataHora.getMonth() + 1);
-    var ano = auxDataHora.getFullYear();
-    var hora = (((auxDataHora.getHours()) < 10) ? "0" : "") + (auxDataHora.getHours());
-    var minuto = ((auxDataHora.getMinutes() < 10) ? "0" : "") + auxDataHora.getMinutes();
-    var segundo = ((auxDataHora.getSeconds() < 10) ? "0" : "") + auxDataHora.getSeconds();
-    var milisegundo = auxDataHora.getMilliseconds();
-    var milisegundo = ((milisegundo < 100) ? "0" : "") + milisegundo;
-    var milisegundo = ((milisegundo < 10) ? "0" : "") + milisegundo;
-
-    if (tipo == "DIA")
-        return dia;
-    if (tipo == "MES")
-        return mes;
-    if (tipo == "ANO")
-        return ano;
-    if (tipo == "DATA")
-        return dia + "/" + mes + "/" + ano;
-    if (tipo == "HORA24")
-        return hora;
-    if (tipo == "MINUTO")
-        return minuto;
-    if (tipo == "SEGUNDO")
-        return segundo;
-    if (tipo == "MILISEGUNDO")
-        return milisegundo;
-    if (tipo == "HORA")
-        return hora + ":" + minuto + ":" + segundo;
-    if (tipo == "DATAHORA")
-        return dia + "/" + mes + "\/" + ano + " " + hora + ":" + minuto + ":" + segundo;
-}
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function(lang) {
-    Globalize.load(
-        __webpack_require__(15),
-        __webpack_require__(21),
-        __webpack_require__(20),
-        __webpack_require__(13),
-        __webpack_require__(17),
-        __webpack_require__(16),
-        __webpack_require__(14),
-        __webpack_require__(19),
-        __webpack_require__(18),
-        __webpack_require__(11),
-        __webpack_require__(12),
-        __webpack_require__(9),
-        __webpack_require__(10)
-    );
-
-    $.widget("ui.spinner", $.ui.spinner, {
-        _format: function(value) {
-            if (value === "") {
-                return "";
-            }
-            return window.Globalize && this.options.numberFormat ?
-                Globalize(lang).formatNumber(value, {
-                    minimumFractionDigits: Number(this.options.numberFormat.replace("n", ""))
-                }) :
-                value;
-        },
-        _parse: function(val) {
-            if (typeof val === "string" && val !== "") {
-                val = window.Globalize && this.options.numberFormat ?
-                    Globalize(lang).parseNumber(val) : +val;
-            }
-            return val === "" || isNaN(val) ? null : val;
-        }
-    });
-
-    return Globalize(lang)
-}
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function(value) {
-    value = jQuery.trim(value);
-    cpf = value.replace(/\.|-|\//gi, '');
-    // elimina .(ponto), -(hifem) e /(barra)
-
-    while (cpf.length < 11) {
-        cpf = "0" + cpf;
-    }
-    var expReg = /^0+$|^1+$|^2+$|^3+$|^4+$|^5+$|^6+$|^7+$|^8+$|^9+$/;
-    var a = [];
-    var b = new Number;
-    var c = 11;
-    for (i = 0; i < 11; i++) {
-        a[i] = cpf.charAt(i);
-        if (i < 9)
-            b += (a[i] * --c);
-    }
-    if ((x = b % 11) < 2) {
-        a[9] = 0;
-    } else {
-        a[9] = 11 - x;
-    }
-    b = 0;
-    c = 11;
-    for (y = 0; y < 10; y++) {
-        b += (a[y] * c--);
-    }
-    if ((x = b % 11) < 2) {
-        a[10] = 0;
-    } else {
-        a[10] = 11 - x;
-    }
-    if ((cpf.charAt(9) != a[9]) || (cpf.charAt(10) != a[10]) || cpf.match(expReg))
-        return false;
-    return true;
-}
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function(cadeia, valorA, valorB) {
-    cadeia = cadeia + "";
-    // Linha de código colocada para forçar o fim de linha na variavel;
-    var cadeiaAux = "";
-    while (cadeia.indexOf(valorA) >= 0) {
-        cadeiaAux = cadeiaAux + cadeia.substring(0, cadeia.indexOf(valorA)) + valorB;
-        cadeia = cadeia.substring(cadeia.indexOf(valorA) + valorA.length);
-    }
-    if (cadeiaAux != "")
-        cadeiaAux = cadeiaAux + cadeia.substring(cadeia.indexOf(valorA));
-    else
-        cadeiaAux = cadeia;
-    return cadeiaAux;
-}
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function(cadeia) {
-    cadeia = "_" + cadeia.toLowerCase();
-    while (cadeia.indexOf("_") > -1) {
-        var pos = cadeia.indexOf("_");
-        cadeia = cadeia.substring(0, pos) + cadeia.substring(pos + 1, pos + 2).toUpperCase() + cadeia.substring(pos + 2);
-    }
-    return cadeia;
-}
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function(retorno) {
-    // Verifica se houve mensagens no retorno e apresenta na tela
-    if (parseInt(retorno["codigo"]) > 0) {
-        $().mensagem({
-            tipo: retorno["tipo"],
-            mensagem: retorno["tipo"] + " [" + retorno["codigo"] + "]:<br/>" + retorno["mensagem"],
-            largura: 400,
-            altura: 160
-        });
-    }
-
-    return (retorno["tipo"] == "Erro" ? true : false);
-}
-
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -2162,7 +1901,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 10 */
+/* 2 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -3024,7 +2763,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 11 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -4016,7 +3755,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 12 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -4342,7 +4081,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 13 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -4843,7 +4582,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 14 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -5355,7 +5094,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 15 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -5849,7 +5588,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 16 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -7753,7 +7492,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 17 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -7907,7 +7646,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 18 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -9691,7 +9430,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 19 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -9845,7 +9584,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 20 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -11741,7 +11480,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 21 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -11893,6 +11632,267 @@ module.exports = {
 		}
 	}
 };
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function(parametros) {
+    // Definindo valores padrões
+    if (typeof(parametros) == "undefined")
+        parametros = {};
+
+    var opcoes = {
+        servidor: (typeof(parametros.servidor) != "undefined" ? parametros.servidor : "localhost"),
+        porta: (typeof(parametros.porta) != "undefined" ? parametros.porta : "8080"),
+        url: (typeof(parametros.url) != "undefined" ? parametros.url : "http://[servidor]:[porta]"),
+        metodo: (typeof(parametros.metodo) != "undefined" ? parametros.metodo : "GET"),
+        acao: (typeof(parametros.acao) != "undefined" ? parametros.acao : "consultar"),
+        assincrono: (typeof(parametros.assincrono) != "undefined" ? parametros.assincrono : true),
+        query: (typeof(parametros.query) != "undefined" ? parametros.query : ""),
+        dados: (typeof(parametros.dados) != "undefined" ? parametros.dados : {}),
+        callback: (typeof(parametros.callback) != "undefined" ? parametros.callback : "")
+    };
+
+    $.each(opcoes, function(key, value) {
+        if (typeof(value) == "string") {
+            value = value.replace("[servidor]", opcoes.servidor);
+            value = value.replace("[porta]", opcoes.porta);
+            opcoes[key] = value;
+        }
+    });
+
+    $.ajax({
+        type: opcoes.metodo,
+        url: opcoes.url + "/api/" + opcoes.acao + "/" + opcoes.query,
+        dataType: "json",
+        contentType: "application/json",
+        async: opcoes.assincrono,
+        cache: false,
+        timeout: 30000,
+        headers: {
+            "authorization": localStorage.getItem("token")
+        },
+        data: opcoes.dados,
+        success: opcoes.callback,
+        error: function(xmlHttpRequest, status, err) {
+            alert("Não foi possível completar a comunicação com o servidor, aguarde alguns minutos e tente novamente.");
+        }
+    });
+}
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function() {
+    return $().funcoes.dataHora("ANO") + $().funcoes.dataHora("MES") + $().funcoes.dataHora("DIA") + $().funcoes.dataHora("HORA24") + $().funcoes.dataHora("MINUTO") + $().funcoes.dataHora("SEGUNDO") + $().funcoes.dataHora("MILISEGUNDO");
+}
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function(tipo) {
+    var auxDataHora = new Date();
+    var dia = ((auxDataHora.getDate() < 10) ? "0" : "") + auxDataHora.getDate();
+    var mes = (((auxDataHora.getMonth() + 1) < 10) ? "0" : "") + (auxDataHora.getMonth() + 1);
+    var ano = auxDataHora.getFullYear();
+    var hora = (((auxDataHora.getHours()) < 10) ? "0" : "") + (auxDataHora.getHours());
+    var minuto = ((auxDataHora.getMinutes() < 10) ? "0" : "") + auxDataHora.getMinutes();
+    var segundo = ((auxDataHora.getSeconds() < 10) ? "0" : "") + auxDataHora.getSeconds();
+    var milisegundo = auxDataHora.getMilliseconds();
+    var milisegundo = ((milisegundo < 100) ? "0" : "") + milisegundo;
+    var milisegundo = ((milisegundo < 10) ? "0" : "") + milisegundo;
+
+    if (tipo == "DIA")
+        return dia;
+    if (tipo == "MES")
+        return mes;
+    if (tipo == "ANO")
+        return ano;
+    if (tipo == "DATA")
+        return dia + "/" + mes + "/" + ano;
+    if (tipo == "HORA24")
+        return hora;
+    if (tipo == "MINUTO")
+        return minuto;
+    if (tipo == "SEGUNDO")
+        return segundo;
+    if (tipo == "MILISEGUNDO")
+        return milisegundo;
+    if (tipo == "HORA")
+        return hora + ":" + minuto + ":" + segundo;
+    if (tipo == "DATAHORA")
+        return dia + "/" + mes + "\/" + ano + " " + hora + ":" + minuto + ":" + segundo;
+}
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function(lang) {
+    Globalize.load(
+        __webpack_require__(7),
+        __webpack_require__(13),
+        __webpack_require__(12),
+        __webpack_require__(5),
+        __webpack_require__(9),
+        __webpack_require__(8),
+        __webpack_require__(6),
+        __webpack_require__(11),
+        __webpack_require__(10),
+        __webpack_require__(3),
+        __webpack_require__(4),
+        __webpack_require__(1),
+        __webpack_require__(2)
+    );
+
+    $.widget("ui.spinner", $.ui.spinner, {
+        _format: function(value) {
+            if (value === "") {
+                return "";
+            }
+            return window.Globalize && this.options.numberFormat ?
+                Globalize(lang).formatNumber(value, {
+                    minimumFractionDigits: Number(this.options.numberFormat.replace("n", ""))
+                }) :
+                value;
+        },
+        _parse: function(val) {
+            if (typeof val === "string" && val !== "") {
+                val = window.Globalize && this.options.numberFormat ?
+                    Globalize(lang).parseNumber(val) : +val;
+            }
+            return val === "" || isNaN(val) ? null : val;
+        }
+    });
+
+    return Globalize(lang)
+}
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function(value) {
+    value = jQuery.trim(value);
+    cpf = value.replace(/\.|-|\//gi, '');
+    // elimina .(ponto), -(hifem) e /(barra)
+
+    while (cpf.length < 11) {
+        cpf = "0" + cpf;
+    }
+    var expReg = /^0+$|^1+$|^2+$|^3+$|^4+$|^5+$|^6+$|^7+$|^8+$|^9+$/;
+    var a = [];
+    var b = new Number;
+    var c = 11;
+    for (i = 0; i < 11; i++) {
+        a[i] = cpf.charAt(i);
+        if (i < 9)
+            b += (a[i] * --c);
+    }
+    if ((x = b % 11) < 2) {
+        a[9] = 0;
+    } else {
+        a[9] = 11 - x;
+    }
+    b = 0;
+    c = 11;
+    for (y = 0; y < 10; y++) {
+        b += (a[y] * c--);
+    }
+    if ((x = b % 11) < 2) {
+        a[10] = 0;
+    } else {
+        a[10] = 11 - x;
+    }
+    if ((cpf.charAt(9) != a[9]) || (cpf.charAt(10) != a[10]) || cpf.match(expReg))
+        return false;
+    return true;
+}
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function(cadeia, valorA, valorB) {
+    cadeia = cadeia + "";
+    // Linha de código colocada para forçar o fim de linha na variavel;
+    var cadeiaAux = "";
+    while (cadeia.indexOf(valorA) >= 0) {
+        cadeiaAux = cadeiaAux + cadeia.substring(0, cadeia.indexOf(valorA)) + valorB;
+        cadeia = cadeia.substring(cadeia.indexOf(valorA) + valorA.length);
+    }
+    if (cadeiaAux != "")
+        cadeiaAux = cadeiaAux + cadeia.substring(cadeia.indexOf(valorA));
+    else
+        cadeiaAux = cadeia;
+    return cadeiaAux;
+}
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function(cadeia) {
+    cadeia = "_" + cadeia.toLowerCase();
+    while (cadeia.indexOf("_") > -1) {
+        var pos = cadeia.indexOf("_");
+        cadeia = cadeia.substring(0, pos) + cadeia.substring(pos + 1, pos + 2).toUpperCase() + cadeia.substring(pos + 2);
+    }
+    return cadeia;
+}
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function(retorno) {
+    // Verifica se houve mensagens no retorno e apresenta na tela
+    if (parseInt(retorno["codigo"]) > 0) {
+        $().mensagem({
+            tipo: retorno["tipo"],
+            mensagem: retorno["tipo"] + " [" + retorno["codigo"] + "]:<br/>" + retorno["mensagem"],
+            largura: 400,
+            altura: 160
+        });
+    }
+
+    return (retorno["tipo"] == "Erro" ? true : false);
+}
+
 
 /***/ }),
 /* 22 */
