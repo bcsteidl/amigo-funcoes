@@ -9,5 +9,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bruno César Steidl",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cldr-core": "^30.0.3",
+    "cldr-dates-full": "^30.0.3",
+    "cldr-numbers-full": "^30.0.3",
+    "globalize": "^1.2.2"
+  }
 }
