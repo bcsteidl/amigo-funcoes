@@ -32,11 +32,7 @@ module.exports = {
         }]
     },
     resolve: {
-        extensions: [".webpack.js", ".web.js", ".js", ".css"],
-        alias: {
-            css: caminho("css"),
-            src: caminho("src")
-        }
+        extensions: [".webpack.js", ".web.js", ".js", ".css"]
     },
     plugins: eProducao ? [
         new webpack.optimize.UglifyJsPlugin({
