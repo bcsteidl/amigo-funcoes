@@ -8,6 +8,5 @@ module.exports = {
     chaveUnica: require('./src/chaveUnica'),
     ajaxSubmit: require('./src/ajaxSubmit'),
     verificaErro: require('./src/verificaErro'),
-    isCPF: require('./src/isCPF'),
-    teste: "sei la"
+    isCPF: require('./src/isCPF')
 }
