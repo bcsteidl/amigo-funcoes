@@ -1,6 +1,6 @@
 {
     "name": "amigo-funcoes",
-    "version": "2.5.0",
+    "version": "2.5.1",
     "description": "Plugin de funções gerais em javascript, podendo ser utilizado em NODEJS ou como plugin para desenvolvimento de frontend em javascript com JQuery",
     "main": "index.js",
     "scripts": {
