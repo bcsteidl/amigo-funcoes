@@ -1,7 +1,6 @@
-'use strict'
 
 module.exports = function(value) {
-    value = jQuery.trim(value);
+    value = value.trim();
     cpf = value.replace(/\.|-|\//gi, '');
     // elimina .(ponto), -(hifem) e /(barra)
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br" class='no-js'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Teste das funções do plugin</title>
+
+    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../node_modules/jquery-ui-dist/jquery-ui.min.js'></script>
+
+    <script src="../node_modules/cldrjs/dist/cldr.js"></script>
+    <script src="../node_modules/cldrjs/dist/cldr/event.js"></script>
+    <script src="../node_modules/cldrjs/dist/cldr/supplemental.js"></script>
+
+    <script src="../node_modules/globalize/dist/globalize.js"></script>
+    <script src="../node_modules/globalize/dist/globalize/number.js"></script>
+    <script src="../node_modules/globalize/dist/globalize/date.js"></script>
+    <script src="../node_modules/globalize/dist/globalize/plural.js"></script>
+
+    <script src='../dist/amigo-funcoes.js'></script>
+
+</head>
+
+<body style>
+    <div/>
+
+    <script>
+        const Gbl = $().funcoes.globalize("pt")
+
+        let resultado = "<b>Data e hora no formato Brasil: </b>" + Gbl.formatDate(new Date(), {
+            skeleton: "yMd Hms"
+        }) + "<br>"
+        resultado += "<b>Data no formato Brasil: </b>" + Gbl.formatDate(new Date(), {
+            date: "short"
+        }) + "<br>"
+        resultado += "<b>Hora no formato Brasil: </b>" + Gbl.formatDate(new Date(), {
+            time: "medium"
+        }) + "<br>"
+        resultado += "<b>Inteiro: </b>" + Gbl.formatNumber(Number(10000)) + "<br>"
+        resultado += "<b>Decimal: </b>" + Gbl.formatNumber(Number(1234.25456), {
+            minimumFractionDigits: 2
+        }) + "<br>"
+
+        $("div").html(resultado)
+
+    </script>
+    </div>
+
+</body>
+
+</html>

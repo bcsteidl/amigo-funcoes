@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br" class='no-js'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Teste das funções do plugin</title>
+
+    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../dist/amigo-funcoes.js'></script>
+
+</head>
+
+<body>
+    <div>
+        <script>
+            const str = "Este é um teste de substituição de valores em uma string"
+
+            let resposta = "<b>Substituindo [substituição] por [alteração]: </b>" + $().funcoes.substituir(str, "substituição", "alteração") + "<br>"
+            resposta += "<b>Substituindo [de] por [em]: </b>" + $().funcoes.substituir(str, "de", "em") + "<br>"
+
+            $("div").html(resposta)
+        </script>
+
+</body>
+
+</html>

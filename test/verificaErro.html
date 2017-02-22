@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br" class='no-js'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Teste das funções do plugin</title>
+
+    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../node_modules/jquery-ui-dist/jquery-ui.min.js'></script>
+    <script src='../dist/amigo-funcoes.js'></script>
+
+</head>
+
+<body>
+
+    <script>
+        console.log("Retorno normal:" + $().funcoes.verificaErro({
+            codigo: "0",
+            tipo: "Normal",
+            mensagem: ""
+        }))
+
+        console.log("Retorno aviso:" + $().funcoes.verificaErro({
+            codigo: "1",
+            tipo: "Aviso",
+            mensagem: "Cuidado com o que pede!"
+        }))
+
+        console.log("Retorno erro:" + $().funcoes.verificaErro({
+            codigo: "2",
+            tipo: "Erro",
+            mensagem: "Ferrou  com tudo!!!"
+        }))
+    </script>
+
+</body>
+
+</html>

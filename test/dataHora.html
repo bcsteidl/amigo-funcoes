@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br" class='no-js'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Teste das funções do plugin</title>
+
+    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../dist/amigo-funcoes.js'></script>
+
+</head>
+
+<body style>
+    <div/>
+
+    <script>
+        let resultado = "<b>DATAHORA: </b>" + $().funcoes.dataHora("DATAHORA") + "<br>"
+        resultado += "<b>DATA: </b>" + $().funcoes.dataHora("DATA") + "<br>"
+        resultado += "<b>DIA: </b>" + $().funcoes.dataHora("DIA") + "<br>"
+        resultado += "<b>MES: </b>" + $().funcoes.dataHora("MES") + "<br>"
+        resultado += "<b>ANO: </b>" + $().funcoes.dataHora("ANO") + "<br>"
+        resultado += "<b>HORA: </b>" + $().funcoes.dataHora("HORA") + "<br>"
+        resultado += "<b>HORA24: </b>" + $().funcoes.dataHora("HORA24") + "<br>"
+        resultado += "<b>MINUTO: </b>" + $().funcoes.dataHora("MINUTO") + "<br>"
+        resultado += "<b>SEGUNDO: </b>" + $().funcoes.dataHora("SEGUNDO") + "<br>"
+        resultado += "<b>MILISEGUNDO: </b>" + $().funcoes.dataHora("MILISEGUNDO") + "<br>"
+
+        $("div").html(resultado)
+    </script>
+    </div>
+
+</body>
+
+</html>

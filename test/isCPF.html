@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br" class='no-js'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Teste das funções do plugin</title>
+
+    <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+    <script src='../dist/amigo-funcoes.js'></script>
+
+</head>
+
+<body>
+    <div>
+    <script>
+        let resposta = "<b>914.158.255-13 é número de CPF válido: </b>" + $().funcoes.isCPF("914.158.255-13") + "<br>"
+        resposta += "<b>914.158.255-10 é número de CPF válido: </b>" + $().funcoes.isCPF("914.158.255-10") + "<br>"
+
+        $("div").html(resposta)
+    </script>
+
+</body>
+
+</html>
