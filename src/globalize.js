@@ -1,5 +1,7 @@
 'use strict'
 
+const $ = require('jquery')
+
 module.exports = function(lang) {
     Globalize.load(
         require("cldr-dates-full/main/pt/ca-gregorian.json"),
