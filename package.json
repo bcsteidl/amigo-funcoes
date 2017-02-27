@@ -1,21 +1,28 @@
 {
-  "name": "amigo-funcoes",
-  "version": "2.5.3",
-  "description": "Pacote de funções gerais para auxilio de projetos, podendo ser utilizado como CommonJS ou plugin na página principal do projeto.",
-  "main": "index.js",
-  "scripts": {
-    "build": "NODE_PRD=FALSE webpack",
-    "build-min": "NODE_PRD=TRUE webpack -p"
-  },
-  "author": "Bruno César Steidl",
-  "license": "ISC",
-  "dependencies": {
-    "amigo-mensagem": "^2.5.0",
-    "cldr-core": "^30.0.3",
-    "cldr-dates-full": "^30.0.3",
-    "cldr-numbers-full": "^30.0.3",
-    "globalize": "^1.2.2",
-    "jquery": "^3.1.1",
-    "jquery-ui-dist": "^1.12.1"
-  }
+    "name": "amigo-funcoes",
+    "version": "2.5.4",
+    "description": "Pacote de funções gerais para auxilio de projetos, podendo ser utilizado como CommonJS ou plugin na página principal do projeto.",
+    "main": "index.js",
+    "scripts": {
+        "start": "webpack-dev-server --content-base . --inline",
+        "build": "NODE_PRD=FALSE webpack",
+        "build-min": "NODE_PRD=TRUE webpack -p"
+    },
+    "author": "Bruno César Steidl",
+    "license": "ISC",
+    "dependencies": {
+        "amigo-mensagem": "^2.5.0",
+        "cldr-core": "^30.0.3",
+        "cldr-dates-full": "^30.0.3",
+        "cldr-numbers-full": "^30.0.3",
+        "globalize": "^1.2.2",
+        "jquery": "^3.1.1",
+        "jquery-ui-dist": "^1.12.1"
+    },
+    "devDependencies": {
+        "css-loader": "^0.26.1",
+        "file-loader": "^0.10.0",
+        "style-loader": "^0.13.1",
+        "url-loader": "^0.5.7"
+    }
 }

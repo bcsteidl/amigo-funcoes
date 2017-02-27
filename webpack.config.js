@@ -15,11 +15,11 @@ module.exports = {
     module: {
         loaders: [{
             test: /\.css$/,
-            include: [caminho("css")],
+            include: [caminho("css"), caminho("node_modules")],
             loader: "style-loader!css-loader"
         }, {
             test: /\.png$/,
-            include: [caminho("img")],
+            include: [caminho("img"), caminho("node_modules")],
             loader: "url-loader?limit=200000"
         }, {
             test: /\.jpg$/,
